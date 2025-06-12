@@ -36,8 +36,8 @@ class CDPDataHubOperator(BaseOperator):
         cluster_name: str,
         environment_name: str,
         operation: str,
-        wait_for_cluster: bool,
-        cluster_wait_timeout: int,
+        wait_for_cluster: bool = True,
+        cluster_wait_timeout: int = 1800,
         cdp_conn_id: str = 'cdp_default',
         *args,
         **kwargs
