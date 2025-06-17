@@ -1,2 +1,2 @@
 apache-airflow>=2.5.0
-cdpcli>=0.9.0
+#cdpcli>=0.9.0
