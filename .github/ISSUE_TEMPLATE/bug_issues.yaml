@@ -1,4 +1,4 @@
-name: Report Issue
+name: 🐞 Report Bug/Issue
 description: Report issue you have noticed and describe how to produce it and its impact
 title: "[Issue] "
 labels: [bug, blocker, non-blocker]
