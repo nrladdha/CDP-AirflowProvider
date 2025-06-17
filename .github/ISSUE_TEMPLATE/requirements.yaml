@@ -1,0 +1,13 @@
+name: 📦 Development Requirements
+description: Suggest or document new dev requirements, features you would like to see
+title: "[Dev Req] "
+labels: [enhancement, requirements]
+body:
+  - type: textarea
+    id: requirement-description
+    attributes:
+      label: Describe the new requirement
+      description: What airflow actions/feature do you want to add and why?
+    validations:
+      required: true
+
