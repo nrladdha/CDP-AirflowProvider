@@ -9,7 +9,7 @@ from airflow.exceptions import AirflowException
 from cdp_provider.hooks.cdp import CDPConnection
 
 
-class CDPDataHubOperator(BaseOperator):
+class CODOperator(BaseOperator):
     """
     Airflow operator to manage CDP DataHub clusters.
     
@@ -17,8 +17,8 @@ class CDPDataHubOperator(BaseOperator):
     1. Start a CDP DataHub cluster
     2. Stop the cluster
     
-    :param cluster_name: Name of the CDP DataHub cluster
-    :type cluster_name: str
+    :param database_name: Name of the COD database cluster
+    :type database_name: str
     :param environment_name: CDP environment name
     :type environment_name: str
     :param wait_for_cluster: Whether to wait for cluster to be ready before proceeding
@@ -33,7 +33,7 @@ class CDPDataHubOperator(BaseOperator):
 
     def __init__(
         self,
-        cluster_name: str,
+        database_name: str,
         environment_name: str,
         operation: str,
         wait_for_cluster: bool = True,
@@ -43,7 +43,7 @@ class CDPDataHubOperator(BaseOperator):
         **kwargs
     ) -> None:
         super().__init__(*args, **kwargs)
-        self.cluster_name = cluster_name
+        self.database_name = database_name
         self.environment_name = environment_name
         self.operation = operation.lower()
         self.wait_for_cluster = wait_for_cluster
@@ -53,7 +53,7 @@ class CDPDataHubOperator(BaseOperator):
         self.stop_result = None
         
         if self.operation not in ['start', 'stop']:
-            raise ValueError("Operation must be either 'start' or 'stop'")
+            raise ValueError("COD Operation must be either 'start' or 'stop'")
 
     def execute(self, context: Dict[str, Any]) -> None:
         """
@@ -65,7 +65,7 @@ class CDPDataHubOperator(BaseOperator):
             self._use_cdp_credentials()
 
             # Set environment variables for CDP CLI
-            self.log.info(f"Input:cluster_name: {self.cluster_name}")
+            self.log.info(f"Input:database_name: {self.database_name}")
             self.log.info(f"Input:environment_name: {self.environment_name}")
             self.log.info(f"Input:operation: {self.operation}")
             self.log.info(f"Input:wait_for_cluster: {self.wait_for_cluster}")
@@ -73,35 +73,37 @@ class CDPDataHubOperator(BaseOperator):
             self.log.info(f"Input:cdp_conn_id: {self.cdp_conn_id}")
 
             if self.operation == 'start':
-                self.log.info(f"Starting CDP DataHub cluster: {self.cluster_name}")
+                self.log.info(f"Starting COD database cluster: {self.database_name}")
                 self._start_cluster()
                 if self.wait_for_cluster:
                     self._wait_for_cluster_ready()
             elif self.operation == 'stop':
-                self.log.info(f"Stopping CDP DataHub cluster: {self.cluster_name}")
+                self.log.info(f"Stopping COD database cluster: {self.database_name}")
                 self._stop_cluster()
                 if self.wait_for_cluster:
                     self._wait_for_cluster_ready()
             else:
-                self.log.info(f"CDP DataHub cluster - Invalid operation supplied : {self.operation}")
+                self.log.info(f"COD database  - Invalid operation supplied : {self.operation}")
             
         except Exception as e:
-            self.log.error(f"Error in CDPDataHubOperator: {str(e)}")
-            raise AirflowException(f"CDPDataHubOperator failed: {str(e)}")
+            self.log.error(f"Error in CODOperator: {str(e)}")
+            raise AirflowException(f"CODOperator failed: {str(e)}")
 
     def _start_cluster(self) -> None:
         """Start the CDP DataHub cluster."""
         cmd = [
-            "cdp", "datahub", "start-cluster",
-            "--cluster-name", self.cluster_name
+            "cdp", "opdb", "start-database",
+            "--database-name", self.database_name,
+            "--environment-name", self.environment_name,    
         ]
         self.start_result = self._run_command(cmd, capture_output=True)
 
     def _stop_cluster(self) -> None:
         """Stop the CDP DataHub cluster."""
         cmd = [
-            "cdp", "datahub", "stop-cluster",
-            "--cluster-name", self.cluster_name
+            "cdp", "opdb", "stop-database",
+            "--database-name", self.database_name,
+            "--environment-name", self.environment_name,  
         ]
         self.stop_result = self._run_command(cmd, capture_output=True)
 
@@ -110,28 +112,29 @@ class CDPDataHubOperator(BaseOperator):
         start_time = time.time()
         while time.time() - start_time < self.cluster_wait_timeout:
             cmd = [
-                "cdp", "datahub", "describe-cluster",
-                "--cluster-name", self.cluster_name
+                "cdp", "opdb", "describe-database",
+                "--database-name", self.database_name,
+                "--environment-name", self.environment_name, 
             ]
             wait_for_result = self._run_command(cmd, capture_output=True)
 
             # Parse stdout as JSON
             output_json = json.loads(wait_for_result.stdout)
-            operation_status = output_json["cluster"]["status"]
+            operation_status = output_json["databaseDetails"]["status"]
            
             if self.operation == 'start':
                 if "AVAILABLE" in operation_status:
-                    self.log.info("Cluster is running")
+                    self.log.info("COD Cluster is running")
                     return
             elif self.operation == 'stop':
                 if "STOPPED" in operation_status:
-                    self.log.info("Cluster is stopped")
+                    self.log.info("COD Cluster is stopped")
                     return
             
-            self.log.info("Waiting for cluster operation to finish...")
+            self.log.info("Waiting for cluster COD operation to finish...")
             time.sleep(30)
         
-        raise AirflowException(f"Timeout occurred: {self.cluster_wait_timeout}: Cluster operation could not finish")
+        raise AirflowException(f"Timeout occurred: {self.cluster_wait_timeout}: COD Cluster operation could not finish")
 
     def _run_command(self, cmd: List[str], capture_output: bool = False) -> subprocess.CompletedProcess:
         """Run a shell command and return the result."""

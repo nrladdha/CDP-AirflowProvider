@@ -39,7 +39,7 @@ class CDPConnection(BaseHook):
     def get_ui_field_behaviour() -> dict:
         """Returns custom field behavior."""
         return {
-            "hidden_fields": ['port', 'schema', 'login', 'password', 'host', 'extra'],
+            "hidden_fields": ['port', 'schema', 'login', 'password', 'host', 'extra','description'],
             "relabeling": {},
             "placeholders": {
                 'access_key_id': 'Enter your access key id (Required)',
