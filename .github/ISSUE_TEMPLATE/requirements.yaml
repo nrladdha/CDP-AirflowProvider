@@ -7,7 +7,26 @@ body:
     id: requirement-description
     attributes:
       label: Describe the new requirement
-      description: What airflow actions/feature do you want to add and why?
+      description: Please describe new dev requirement -  What new action/feature or enhancements to existing action/feature do you want cdp-airflow-provider to provide and why?
     validations:
       required: true
 
+name: Report Issue
+description: Report issue you have noticed and describe how to produce it and its impact
+title: "[Issue] "
+labels: [bug, blocker, non-blocker]
+body:
+  - type: textarea
+    id: requirement-description
+    attributes:
+      label: Describe the issue/bug you have experienced 
+      description: Please describe the issue/bug(s) you have experienced and describe how to produce t and its impact. 
+    validations:
+      required: true
+  - type: textarea
+    id: solution-description
+    attributes:
+      label: Describe solution if you already identified or add PR request link
+      description: Please describe potential solution if you have already identified or please include the PR request if you have implemented it and wants to contribute 
+    validations:
+      required: false 
