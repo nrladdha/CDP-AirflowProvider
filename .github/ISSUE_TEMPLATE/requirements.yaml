@@ -6,7 +6,7 @@ body:
   - type: textarea
     id: requirement-description
     attributes:
-      label: Describe the new requirement
+      label: Describe the new requirement/feature. (Required)
       description: Please describe new dev requirement -  What new action/feature or enhancements to existing action/feature do you want cdp-airflow-provider to provide and why?
     validations:
       required: true

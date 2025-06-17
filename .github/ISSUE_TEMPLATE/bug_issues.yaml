@@ -6,7 +6,7 @@ body:
   - type: textarea
     id: requirement-description
     attributes:
-      label: Describe the issue/bug you have experienced
+      label: Describe the issue/bug you have experienced. (Required)
       description: Please describe the issue/bug(s) you have experienced and describe how to produce t and its impact.
     validations:
       required: true
@@ -14,7 +14,7 @@ body:
   - type: textarea
     id: solution-description
     attributes:
-      label: Describe solution if you already identified or add PR request link
+      label: Describe solution if you already identified or add PR request link. (Optional)
       description: Please describe potential solution if you have already identified or please include the PR request if you have implemented it and wants to contribute
     validations:
       required: false
