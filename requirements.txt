@@ -1,6 +1,2 @@
 apache-airflow>=2.5.0
-<<<<<<< HEAD
-#cdpcli>=0.1.0
-=======
 cdpcli>=0.9.0
->>>>>>> 2afc216 (Added COD operator, added example dag for COD & datahub)
