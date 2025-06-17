@@ -71,11 +71,12 @@ Region        : Optionally define region name to use the correct Cloudera Contro
 3. In Airflow dag you can define tasks of type CDPDataHubOperator and supply cluster details and operation to perform
 For example dag see example_cdp_dag.py
 
-
-
 ## Requirements
 
 - Python 3.7+
 - Apache Airflow 2.5.0+
 - CDP CLI installed and configured
 - Proper permissions to manage CDP DataHub clusters 
+
+## 🤝 Contributing
+We welcome contributions! Whether you're experimenting with the cdp-airflow provider plugin and identified bugs, fixing a bug, adding a feature, or improving documentation, all contributions are welcomed and helps drive this project. Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
