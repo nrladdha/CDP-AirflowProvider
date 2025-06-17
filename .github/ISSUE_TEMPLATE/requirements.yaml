@@ -23,6 +23,7 @@ body:
       description: Please describe the issue/bug(s) you have experienced and describe how to produce t and its impact. 
     validations:
       required: true
+
   - type: textarea
     id: solution-description
     attributes:
