@@ -43,7 +43,7 @@ CDPDataHubOperator accepts following parameters
 
 
 ## CDP Connection
-CDP Airflow operators utilises cdp cli and requires CDP access key to interact with CDP cluster.  To generate CDP access key, (see the steps provided)[https://docs.cloudera.com/cdp-public-cloud/cloud/cli/topics/mc-cli-generating-an-api-access-key.html#pnavId1] from Cloudera documentation. 
+CDP Airflow operators utilises cdp cli and requires CDP access key to interact with CDP cluster.  To generate CDP access key, [see the steps provided](https://docs.cloudera.com/cdp-public-cloud/cloud/cli/topics/mc-cli-generating-an-api-access-key.html#pnavId1) from Cloudera documentation. 
 Note : cdp-airflow operatior does not require creating .credentials file. Instead installation of cdp-airflow-provider provides "CDP" airflow connection type with ability to supply access-keyid and private-key.  Both are required for interaction with CDP cluster. 
 1. New connection type - CDP
 2. Accepts credentials - Cloudera access key id & private key. 
@@ -66,7 +66,7 @@ Access key ID : Copy and paste the access key ID that generated in the Cloudera 
 Private key   : Copy and paste the private key that generated in the Cloudera Management Console.
 Region        : Optionally define region name to use the correct Cloudera Control Plane region. For example: cdp_region = eu-1
 
-(Click here to read steps to generate CDP access-key)[https://docs.cloudera.com/cdp-public-cloud/cloud/cli/topics/mc-cli-generating-an-api-access-key.html#pnavId1]
+[Click here to read steps to generate CDP access-key](https://docs.cloudera.com/cdp-public-cloud/cloud/cli/topics/mc-cli-generating-an-api-access-key.html#pnavId1)
 
 3. In Airflow dag you can define tasks of type CDPDataHubOperator and supply cluster details and operation to perform
 For example dag see example_cdp_dag.py
