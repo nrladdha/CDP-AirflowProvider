@@ -1,6 +1,6 @@
-# CDP Airflow Operator
+# CDP Airflow Provider
 
-This repo provides Airflow provider for managing Cloudera CDP clusters. That can be utilised to integrate CDP within your airflow dag for automation.
+This repo provides Airflow provider for managing Cloudera CDP clusters. It can be utilised to orchestrate CDO cluster actions in your airflow dag.
 
 ## Features
 
