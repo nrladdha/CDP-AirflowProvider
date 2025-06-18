@@ -68,8 +68,7 @@ Region        : Optionally define region name to use the correct Cloudera Contro
 
 [Click here to read steps to generate CDP access-key](https://docs.cloudera.com/cdp-public-cloud/cloud/cli/topics/mc-cli-generating-an-api-access-key.html#pnavId1)
 
-3. In Airflow dag you can define tasks of type CDPDataHubOperator and supply cluster details and operation to perform
-For example dag see example_cdp_dag.py
+3. It assume CDP datahub cluster is already created and its cluster-name and environment-name are required while implementing a Airflow dag (workflow). Tasks like start and/or stop can be orchestrated using CDPDataHubOperator. Please see example dag [example_cdp_datahub_dag.py](https://github.com/nrladdha/CDP-AirflowProvider/blob/master/cdp_provider/example_dags/example_cdp_datahub_dag.py), [example_cdp_cod_dag.py](https://github.com/nrladdha/CDP-AirflowProvider/blob/master/cdp_provider/example_dags/example_cdp_cod_dag.py) 
 
 ## Requirements
 
